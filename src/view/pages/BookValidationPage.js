@@ -1,5 +1,5 @@
-import React from 'react';
-import BookValidation from '../components/BookValidation';
+import React from "react";
+import BookValidation from "../../Controller/BookValidation";
 
 const BookValidationPage = () => {
   return (

@@ -1,11 +1,11 @@
-import React from 'react';
-import { Navigate, Routes, Route } from 'react-router-dom'
-import Home from './pages/Home';
-import BookSearchPage from './pages/BookSearchPage';
-import BookReservationPage from './pages/BookReservationPage';
-import BookValidationPage from './pages/BookValidationPage';
-import UserManagementPage from './pages/UserManagementPage';
-import NoPage from './pages/NoPage';
+import React from "react";
+import { Navigate, Routes, Route } from "react-router-dom";
+import Home from "./view/pages/Home";
+import BookSearchPage from "./view/pages/BookSearchPage";
+import BookReservationPage from "./view/pages/BookReservationPage";
+import BookValidationPage from "./view/pages/BookValidationPage";
+import UserManagementPage from "./view/pages/UserManagementPage";
+import NoPage from "./view/pages/NoPage";
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
         <Route path="*" element={<NoPage />} />
       </Routes>
     </>
-  )
+  );
 }
 
 export default App;

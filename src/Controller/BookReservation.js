@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import { reserveBook } from '../controller/api';
+import React, { useState } from "react";
+import { reserveBook } from "../model/api.js";
 
 const BookReservation = () => {
-  const [bookId, setBookId] = useState('');
-  const [userId, setUserId] = useState('');
-  const [reservationStatus, setReservationStatus] = useState('');
+  const [bookId, setBookId] = useState("");
+  const [userId, setUserId] = useState("");
+  const [reservationStatus, setReservationStatus] = useState("");
 
   const handleReservation = async () => {
     try {
       const data = await reserveBook(bookId, userId);
       if (data) {
-        setReservationStatus('Reservation successful!');
+        setReservationStatus("Reservation successful!");
       } else {
-        setReservationStatus('Reservation failed!');
+        setReservationStatus("Reservation failed!");
       }
     } catch (error) {
-      console.error('Error reserving book:', error);
-      setReservationStatus('Reservation failed!');
+      console.error("Error reserving book:", error);
+      setReservationStatus("Reservation failed!");
     }
   };
 

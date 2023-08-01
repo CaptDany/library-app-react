@@ -1,5 +1,5 @@
-import React from 'react';
-import BookReservation from '../components/BookReservation';
+import React from "react";
+import BookReservation from "../../Controller/BookReservation";
 
 const BookReservationPage = () => {
   return (

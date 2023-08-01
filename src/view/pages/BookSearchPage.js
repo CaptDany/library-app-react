@@ -1,5 +1,5 @@
-import React from 'react';
-import BookSearch from '../components/BookSearch';
+import React from "react";
+import BookSearch from "../../Controller/BookSearch";
 
 const BookSearchPage = () => {
   return (

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { searchBooks } from '../controller/api';
+import React, { useState } from "react";
+import { searchBooks } from "../model/api.js";
 
 const BookSearch = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
   const handleSearch = async () => {
@@ -10,7 +10,7 @@ const BookSearch = () => {
       const data = await searchBooks(searchTerm);
       setSearchResults(data);
     } catch (error) {
-      console.error('Error searching books:', error);
+      console.error("Error searching books:", error);
       setSearchResults([]);
     }
   };

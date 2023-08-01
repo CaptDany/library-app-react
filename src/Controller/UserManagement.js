@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import { addUser, updateUser } from '../controller/api';
+import React, { useState } from "react";
+import { addUser, updateUser } from "../model/api.js";
 
 const UserManagement = () => {
-  const [userId, setUserId] = useState('');
-  const [userName, setUserName] = useState('');
-  const [userRole, setUserRole] = useState('');
-  const [userUpdateStatus, setUserUpdateStatus] = useState('');
+  const [userId, setUserId] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userRole, setUserRole] = useState("");
+  const [userUpdateStatus, setUserUpdateStatus] = useState("");
 
   const handleAddUser = async () => {
     try {
       // Assuming addUser function takes userId, userName, and userRole as parameters
       await addUser(userId, userName, userRole);
-      setUserUpdateStatus('User added successfully!');
+      setUserUpdateStatus("User added successfully!");
     } catch (error) {
-      console.error('Error adding user:', error);
-      setUserUpdateStatus('User addition failed!');
+      console.error("Error adding user:", error);
+      setUserUpdateStatus("User addition failed!");
     }
   };
 
@@ -22,10 +22,10 @@ const UserManagement = () => {
     try {
       // Assuming updateUser function takes userId, userName, and userRole as parameters
       await updateUser(userId, userName, userRole);
-      setUserUpdateStatus('User updated successfully!');
+      setUserUpdateStatus("User updated successfully!");
     } catch (error) {
-      console.error('Error updating user:', error);
-      setUserUpdateStatus('User update failed!');
+      console.error("Error updating user:", error);
+      setUserUpdateStatus("User update failed!");
     }
   };
 

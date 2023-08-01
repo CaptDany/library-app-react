@@ -1,3 +1,4 @@
+import React from 'react';
 import { Navigate, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home';
 import BookSearchPage from './pages/BookSearchPage';
@@ -6,7 +7,7 @@ import BookValidationPage from './pages/BookValidationPage';
 import UserManagementPage from './pages/UserManagementPage';
 import NoPage from './pages/NoPage';
 
-export default function App() {
+function App() {
   return (
     <>
       <Routes>
@@ -22,3 +23,5 @@ export default function App() {
     </>
   )
 }
+
+export default App;

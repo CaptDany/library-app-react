@@ -17,24 +17,29 @@ const BookSearch = () => {
 
   return (
     <div>
+      <h2>Book Search</h2>
       <input
         type="text"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        placeholder="Enter search term"
+        placeholder="Enter author, title, or editor"
       />
       <button onClick={handleSearch}>Search</button>
 
-      <div>
-        <h2>Search Results</h2>
-        <ul>
-          {searchResults.map((book) => (
-            <li key={book.id}>
-              {book.title} by {book.author} - {book.editor}
-            </li>
-          ))}
-        </ul>
-      </div>
+      {searchResults.length > 0 ? (
+        <div>
+          <h3>Search Results:</h3>
+          <ul>
+            {searchResults.map((book) => (
+              <li key={book.id}>
+                {book.title} by {book.author} - {book.editor}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <p>No results found.</p>
+      )}
     </div>
   );
 };

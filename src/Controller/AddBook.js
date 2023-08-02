@@ -17,7 +17,8 @@ const AddBookForm = () => {
         date_published,
         publisher
       );
-      if (response.success) {
+      console.log(response);
+      if (response._id) {
         setMessage("Book added successfully!");
         setTitle("");
         setAuthor("");

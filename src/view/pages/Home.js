@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Register from "../../Controller/Register";
 
 const Home = () => {
+  const [showRegisterPopup, setShowRegisterPopup] = useState(false);
+
+  const openRegisterPopup = () => {
+    setShowRegisterPopup(true);
+  };
+
+  const closeRegisterPopup = () => {
+    setShowRegisterPopup(false);
+  };
+
   return (
     <div>
       <h1>Welcome to the Library App!</h1>
@@ -29,6 +40,8 @@ const Home = () => {
           <Link to="/manage">User Management</Link>
         </li>
       </ul>
+      <button onClick={openRegisterPopup}>Register</button>
+      {showRegisterPopup && <Register onClose={closeRegisterPopup} />}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:5000";
+const API_BASE_URL = "http://localhost:5000/library";
 
 export const searchBooks = async (searchTerm) => {
   try {
@@ -76,20 +76,22 @@ export const validateReturning = async (bookId, userId) => {
   }
 };
 
-export const addUser = async (userId, userName, userRole) => {
+export const addUser = async (userData) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/users/add`, {
+    const response = await fetch(`${API_BASE_URL}/users/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ userId, userName, userRole }),
+      body: JSON.stringify(userData), // Pass the entire user data object in the request body
     });
+
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
+
     const data = await response.json();
-    return data.success; // Assuming the backend returns an object with { success: true/false }
+    return data;
   } catch (error) {
     console.error("Error adding user:", error);
     return false;

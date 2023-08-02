@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { login } from "../model/api.js";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState("");
@@ -30,9 +30,10 @@ const Login = ({ onLogin }) => {
 
   return (
     <div>
-      <h2>Login</h2>
+      <h2 className="inner-page-titles">Login</h2>
       {errorMessage && <p>{errorMessage}</p>}
       <form onSubmit={handleLogin}>
+        <p>Username or Email</p>
         <input
           type="text"
           value={username}
@@ -40,6 +41,7 @@ const Login = ({ onLogin }) => {
           placeholder="Username or Email"
         />
         <div />
+        <p>Password</p>
         <input
           type="password"
           value={pass}
@@ -48,6 +50,10 @@ const Login = ({ onLogin }) => {
         />
         <div />
         <button type="submit">Login</button>
+        <p>Are you new?</p>
+        <Link className="logo" to={"/home"}>
+          Create an account!
+        </Link>
       </form>
     </div>
   );

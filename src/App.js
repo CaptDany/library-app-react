@@ -1,6 +1,7 @@
 import React from "react";
 import { Navigate, Routes, Route } from "react-router-dom";
-import Home from "./view/pages/Home";
+import Home from "./view/pages/HomePage";
+import AdminDash from "./view/pages/Dashboard";
 import BookSearchPage from "./view/pages/BookSearchPage";
 import BookReservationPage from "./view/pages/BookReservationPage";
 import BookValidationPage from "./view/pages/BookValidationPage";
@@ -24,6 +25,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/dashboard" element={<AdminDash />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/search" element={<BookSearchPage />} />
         <Route path="/reserve" element={<BookReservationPage />} />

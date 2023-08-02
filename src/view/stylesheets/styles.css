@@ -8,8 +8,46 @@ h3,
 h4,
 h5,
 h6,
+p,
+button,
+label,
+input,
 body {
   font-family: var(--primary-font-family);
+}
+
+.inner-page-titles {
+  padding: 20px;
+  text-align: center;
+  font-size: 40px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+form {
+  max-width: 20vw;
+  min-height: 10vw;
+  padding: 30px;
+  background-color: #f4f4f4;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+form label,
+form button,
+form p {
+  margin: 8px 0;
+}
+
+form input {
+  margin: 8px 8px;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 /* Styling for the Home page container */

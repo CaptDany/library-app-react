@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Register from "../../Controller/Register";
 import "../stylesheets/styles.css";
 
-const Home = () => {
+const AdminDash = () => {
   const [showRegisterPopup, setShowRegisterPopup] = useState(false);
 
   const openRegisterPopup = () => {
@@ -47,4 +47,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default AdminDash;

@@ -17,14 +17,35 @@ export const searchBooks = async (searchTerm) => {
   }
 };
 
-export const reserveBook = async (bookId, userId) => {
+export const editBook = async (bookId, updatedData) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/books/reserve`, {
+    const response = await fetch(`${API_BASE_URL}/books/${bookId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`, // Include the JWT token in the headers
+      },
+      body: JSON.stringify(updatedData), // Pass the updated book data object in the request body
+    });
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error editing book:", error);
+    return false;
+  }
+};
+
+export const reserveBook = async (bookId, uid) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/books/${bookId}/reserve`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ bookId, userId }),
+      body: JSON.stringify({ uid }),
     });
     if (!response.ok) {
       throw new Error("Network response was not ok");
@@ -139,7 +160,6 @@ export const login = async (username, pass) => {
   }
 };
 
-//*
 export const addNewBook = async (
   book_title,
   author,
@@ -164,48 +184,3 @@ export const addNewBook = async (
     return { success: false };
   }
 };
-//*/
-
-/*
-export const addNewBook = async (
-  book_title,
-  author,
-  date_published,
-  publisher
-) => {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${API_BASE_URL}/books/`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            book_title,
-            author,
-            date_published,
-            publisher,
-          }),
-        });
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const newData = await response.json();
-        setData(newData);
-        return data;
-      } catch (error) {
-        console.error("Error adding book:", error);
-        return { success: false };
-      }
-    };
-
-    fetchData();
-  }, [token]);
-
-  return { success: true };
-};
-*/

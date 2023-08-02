@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { addUser } from "../model/api";
+import { Link } from "react-router-dom";
 
 const Register = ({ onClose }) => {
   const [username, setUsername] = useState("");
@@ -57,7 +58,7 @@ const Register = ({ onClose }) => {
               onChange={(e) => setUsername(e.target.value)}
             />
           </label>
-          <br />
+
           <label>
             Email:
             <input
@@ -66,7 +67,7 @@ const Register = ({ onClose }) => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </label>
-          <br />
+
           <label>
             Password:
             <input
@@ -75,7 +76,7 @@ const Register = ({ onClose }) => {
               onChange={(e) => setPass(e.target.value)}
             />
           </label>
-          <br />
+
           <label>
             Birthyear:
             <input
@@ -84,7 +85,7 @@ const Register = ({ onClose }) => {
               onChange={(e) => setBirthyear(e.target.value)}
             />
           </label>
-          <br />
+
           <label>
             First Name:
             <input
@@ -93,7 +94,7 @@ const Register = ({ onClose }) => {
               onChange={(e) => setFirstName(e.target.value)}
             />
           </label>
-          <br />
+
           <label>
             Middle Name:
             <input
@@ -102,7 +103,7 @@ const Register = ({ onClose }) => {
               onChange={(e) => setMiddleName(e.target.value)}
             />
           </label>
-          <br />
+
           <label>
             Last Name:
             <input
@@ -111,7 +112,7 @@ const Register = ({ onClose }) => {
               onChange={(e) => setLastName(e.target.value)}
             />
           </label>
-          <br />
+
           <label>
             Is Admin:
             <input
@@ -120,11 +121,17 @@ const Register = ({ onClose }) => {
               onChange={(e) => setIsAdmin(e.target.checked)}
             />
           </label>
-          <br />
-          <button type="submit">Register</button>
-          <button type="button" onClick={onClose}>
-            Cancel
-          </button>
+          <div>
+            <button type="submit">Register</button>
+            <button type="button" onClick={onClose}>
+              Cancel
+            </button>
+          </div>
+          <div>
+            <Link to="/login">
+              <button type="button">Login</button>
+            </Link>
+          </div>
         </form>
       </div>
     </div>

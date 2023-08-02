@@ -49,19 +49,70 @@ router.get("/books/:id", async function (req, res) {
   res.send(book);
 });
 
-router.put("/books/", async function (req, res) {
-  await Book.findOneAndUpdate(
-    {
-      _id: req.body._id,
-    },
-    {
-      book_title: req.body.book_title,
-      author: req.body.author,
-      date_published: req.body.date_published,
-      publisher: req.body.publisher,
+router.put("/books/:id", async function (req, res) {
+  try {
+    const bookId = req.params.id;
+    const updatedData = req.body;
+
+    const updatedBook = await Book.findOneAndUpdate(
+      { _id: bookId },
+      updatedData,
+      { new: true }
+    );
+
+    if (!updatedBook) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Book not found" });
     }
-  );
-  res.send(true);
+
+    // Return the updated book data as a JSON response
+    res.json(updatedBook);
+  } catch (error) {
+    console.error("Error editing book:", error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+});
+
+router.post("/books/:id/reserve", async function (req, res) {
+  try {
+    const bookId = req.params.id;
+    if (!bookId) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Book id was not passed" });
+    }
+    const uid = req.body.uid;
+    console.log(uid);
+
+    const book = await Book.findById(bookId);
+
+    if (!book) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Book not found" });
+    }
+
+    // Check if the book is already reserved
+    if (book.isReserved) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Book is already reserved" });
+    }
+
+    // Set the book as reserved
+    book.isReserved = true;
+    book.reservedBy = uid;
+    await book.save();
+
+    // Perform any additional reservation logic here (e.g., store the user's reservation details)
+
+    // Return a success response
+    res.json({ success: true, message: "Book reserved successfully" });
+  } catch (error) {
+    console.error("Error reserving book:", error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
 });
 
 router.delete("/books/:id", async function (req, res) {

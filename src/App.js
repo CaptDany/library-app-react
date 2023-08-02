@@ -50,6 +50,12 @@ function App() {
               <Route path="/home" element={<AdminDash />} />
               <Route path="/dashboard" element={<AdminDash />} />
               <Route path="/" element={<Navigate to="/dashboard" />} />
+              <Route path="/search" element={<BookSearchPage />} />
+              <Route path="/reserve" element={<BookReservationPage />} />
+              <Route path="/validate" element={<BookValidationPage />} />
+              <Route path="/manage" element={<UserManagementPage />} />
+              <Route path="/add-book" element={<AddBookPage />} />
+              <Route path="*" element={<NoPage />} />
             </>
           ) : (
             <>
@@ -57,6 +63,9 @@ function App() {
               <Route index element={<UserDash />} />
               <Route path="/home" element={<UserDash />} />
               <Route path="/" element={<Navigate to="/dashboard" />} />
+              <Route path="/search" element={<BookSearchPage />} />
+              <Route path="/reserve" element={<BookReservationPage />} />
+              <Route path="*" element={<NoPage />} />
             </>
           )
         ) : (
@@ -64,16 +73,11 @@ function App() {
             <Route index element={<Home />} />
             <Route path="/" element={<Navigate to="/home" />} />
             <Route path="/home" element={<Home />} />
+            <Route path="*" element={<NoPage />} />
           </>
         )}
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/search" element={<BookSearchPage />} />
-        <Route path="/reserve" element={<BookReservationPage />} />
-        <Route path="/validate" element={<BookValidationPage />} />
-        <Route path="/manage" element={<UserManagementPage />} />
-        <Route path="/add-book" element={<AddBookPage />} />
         <Route path="/logout" element={<Logout />} />
-        <Route path="*" element={<NoPage />} />
       </Routes>
     </>
   );

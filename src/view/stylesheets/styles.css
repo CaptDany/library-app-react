@@ -17,6 +17,39 @@ body {
   margin: 8px 0;
 }
 
+table {
+  max-width: 80vw;
+  border-collapse: collapse;
+}
+
+/* CSS for table header row */
+table th {
+  background-color: #f2f2f2;
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+/* CSS for table data rows */
+table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+/* CSS for table alternate row background color */
+table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* CSS for table hover effect */
+table tr:hover {
+  background-color: #eaf2ff;
+}
+
+table button {
+  margin: 2% 5%;
+}
+
 .inner-page-titles {
   padding: 20px;
   text-align: center;
@@ -47,14 +80,8 @@ form {
   margin: 0 auto;
 }
 
-form label,
-form button,
-form p {
-  margin: 8px 0;
-}
-
 form input {
-  margin: 8px 8px;
+  margin: 0.1vh 0.5vw;
   padding: 5px;
   border-radius: 5px;
 }
@@ -130,7 +157,7 @@ form input {
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black overlay */
-  z-index: 9999; /* Higher z-index to ensure it appears on top of other elements */
+  z-index: 3; /* Higher z-index to ensure it appears on top of other elements */
 }
 
 /* Styling for the registration modal content */
@@ -139,13 +166,55 @@ form input {
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  max-height: 80vh;
   max-width: 400px;
   width: 100%;
 }
 
+.register-modal-content h2 {
+  padding: 10px;
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.register-modal-content label {
+  padding: 3px;
+  font-size: medium;
+  margin-bottom: 5px;
+}
+
+.register-modal-content form {
+  max-width: 40vw;
+  padding: 10px;
+  background-color: #f4f4f4;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.register-modal-content input {
+  margin: 0vh 1vw;
+  padding: 5px;
+  border-radius: 5px;
+}
+
 @media only screen and (max-width: 1000px) {
-  form {
-    max-width: 1000vw;
+  .register-modal-content {
+    background-color: #fff; /* White background for the content */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    max-height: 90vh;
+    max-width: 75vw;
+    width: 100%;
+  }
+
+  .register-modal-content form {
+    max-width: 90vw;
     min-height: 20vh;
     padding: 10px;
     background-color: #f4f4f4;
@@ -155,12 +224,12 @@ form input {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 0 auto;
+    margin: 0 1vw;
   }
 
-  label {
+  .register-modal-content label {
     font-size: 15px;
-    margin: 4px;
+    margin: 4px 24px;
   }
   input {
     font-size: 12px;

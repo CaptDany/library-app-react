@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { searchBooks } from "../model/api.js";
+import { searchBooks, reserveBook, editBook } from "../model/api.js";
 
 const BookSearch = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const uid = localStorage.getItem("currentUser");
 
   const handleSearch = async () => {
     try {
@@ -12,6 +13,36 @@ const BookSearch = () => {
     } catch (error) {
       console.error("Error searching books:", error);
       setSearchResults([]);
+    }
+  };
+
+  const handleEditBook = async (bookNo, token) => {
+    try {
+      const book = await editBook(bookNo, token);
+      console.log("Editing book:", book);
+    } catch (error) {
+      console.error("Error editing book:", error);
+    }
+  };
+
+  const handleReserveBook = async (bookId, uid) => {
+    try {
+      const response = await reserveBook(bookId, uid);
+      console.log(response);
+
+      if (response.success) {
+        const updatedSearchResults = searchResults.map((book) => {
+          if (book._id === bookId) {
+            return { ...book, isReserved: !book.isReserved };
+          }
+          return book;
+        });
+        setSearchResults(updatedSearchResults);
+      } else {
+        console.log("Failed to reserve book.");
+      }
+    } catch (error) {
+      console.error("Error reserving book:", error);
     }
   };
 
@@ -29,21 +60,44 @@ const BookSearch = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Enter author, title, or editor"
+          onSubmit={handleSearch}
         />
         <button onClick={handleSearch}>Search</button>
 
         {searchResults.length > 0 ? (
           <div className="content-holder">
             <h3>Search Results:</h3>
-            <ul>
-              {searchResults.map((book) => (
-                <li key={book.id}>
-                  {book.book_title} by {book.author} - {book.date_published},{" "}
-                  {book.publisher}. The book is{" "}
-                  <b>{book.isReserved ? "currently" : "not"}</b> reserved.
-                </li>
-              ))}
-            </ul>
+            <table>
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Author</th>
+                  <th>Date Published</th>
+                  <th>Publisher</th>
+                  <th>Reserved</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {searchResults.map((book) => (
+                  <tr key={book._id}>
+                    <td>{book.book_title}</td>
+                    <td>{book.author}</td>
+                    <td>{book.date_published}</td>
+                    <td>{book.publisher}</td>
+                    <td>{book.isReserved ? "Yes" : "No"}</td>
+                    <td>
+                      <button onClick={() => handleEditBook(book._id, uid)}>
+                        Edit
+                      </button>
+                      <button onClick={() => handleReserveBook(book._id, uid)}>
+                        {book.isReserved ? "Cancel Reservation" : "Reserve"}
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         ) : (
           <p>No results found.</p>

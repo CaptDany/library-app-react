@@ -11,6 +11,7 @@ router.post("/books/", async function (req, res, next) {
     author: req.body.author,
     date_published: req.body.date_published,
     publisher: req.body.publisher,
+    lastReservedBy: " ",
     isReserved: "false",
   });
   await book.save();
@@ -102,12 +103,9 @@ router.post("/books/:id/reserve", async function (req, res) {
 
     // Set the book as reserved
     book.isReserved = true;
-    book.reservedBy = uid;
+    book.lastReservedBy = uid;
     await book.save();
 
-    // Perform any additional reservation logic here (e.g., store the user's reservation details)
-
-    // Return a success response
     res.json({ success: true, message: "Book reserved successfully" });
   } catch (error) {
     console.error("Error reserving book:", error);

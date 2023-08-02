@@ -21,6 +21,10 @@ const Book = mongoose.model("Book", {
     type: Boolean,
     required: true,
   },
+  lastReservedBy: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = Book;

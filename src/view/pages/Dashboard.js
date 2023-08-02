@@ -1,19 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Register from "../../Controller/Register";
 import "../stylesheets/styles.css";
 
 const AdminDash = () => {
-  const [showRegisterPopup, setShowRegisterPopup] = useState(false);
-
-  const openRegisterPopup = () => {
-    setShowRegisterPopup(true);
-  };
-
-  const closeRegisterPopup = () => {
-    setShowRegisterPopup(false);
-  };
-
   return (
     <div className="home-container">
       <h1>Welcome to the Library App!</h1>
@@ -41,8 +30,6 @@ const AdminDash = () => {
           <Link to="/manage">User Management</Link>
         </li>
       </ul>
-      <button onClick={openRegisterPopup}>Register</button>
-      {showRegisterPopup && <Register onClose={closeRegisterPopup} />}
     </div>
   );
 };

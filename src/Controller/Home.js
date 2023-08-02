@@ -17,6 +17,11 @@ const Home = () => {
   return (
     <div className="bigboicontainer">
       <div className="pipi" />
+      <div
+        style={{
+          minHeight: "5vh",
+        }}
+      />
       <div className="container">
         <h1>Welcome to The Library!</h1>
         <div className="button-wrapper">

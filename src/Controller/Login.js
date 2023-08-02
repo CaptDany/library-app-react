@@ -18,7 +18,7 @@ const Login = ({ onLogin }) => {
         console.log("Login successful!");
         localStorage.setItem("token", response.token);
         onLogin(response.token);
-        navigate("/home");
+        navigate("/dashboard");
       } else {
         setErrorMessage("Invalid credentials. Please try again.");
       }

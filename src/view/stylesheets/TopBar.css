@@ -5,6 +5,9 @@ body {
 }
 
 .top-bar {
+  position: fixed;
+  top: 0;
+  width: 100%;
   background-color: #fff; /* Change background color to white */
   color: #333; /* Change text color to dark gray */
   padding: 15px;

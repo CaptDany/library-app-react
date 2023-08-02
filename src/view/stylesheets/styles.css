@@ -59,6 +59,21 @@ form input {
   border-radius: 5px;
 }
 
+.dash-image-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dash-image {
+  width: 90%;
+  height: 20vh;
+  object-fit: cover;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 /* Styling for the Home page container */
 .home-container {
   max-width: 800px;

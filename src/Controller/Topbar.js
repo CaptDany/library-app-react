@@ -20,37 +20,43 @@ const TopBar = ({ isLogged, loggedInUser }) => {
   };
 
   return (
-    <div className="top-bar">
-      <div className="top-bar-content">
-        {isLogged ? (
-          <Link to="/dashboard" className="logo">
-            <h2>The Library</h2>
-          </Link>
-        ) : (
-          <Link to="/home" className="logo">
-            <h2>The Library</h2>
-          </Link>
-        )}
-        {isLogged ? (
-          <div className="username-container">
-            <p className="username" onMouseDown={toggleDropdownMenu}>
-              Welcome, {loggedInUser}!
-            </p>
-            {showDropdownMenu && (
-              <div className="dropdown-menu">
-                {/* Add dropdown menu items here */}
-                <Link to="/profile">Profile</Link>
-                <Link to="/settings">Settings</Link>
-                <Link to="/logout">Logout</Link>
-              </div>
-            )}
-          </div>
-        ) : (
-          <button onClick={openRegisterPopup}>Register</button>
-        )}
+    <>
+      <div className="top-bar">
+        <div className="top-bar-content">
+          {isLogged ? (
+            <Link to="/dashboard" className="logo">
+              <h2>The Library</h2>
+            </Link>
+          ) : (
+            <Link to="/home" className="logo">
+              <h2>The Library</h2>
+            </Link>
+          )}
+          {isLogged ? (
+            <div className="username-container">
+              <p className="username" onMouseDown={toggleDropdownMenu}>
+                Welcome, {loggedInUser}!
+              </p>
+              {showDropdownMenu && (
+                <div className="dropdown-menu">
+                  {/* Add dropdown menu items here */}
+                  <Link onClick={toggleDropdownMenu} to="/manage">
+                    Profile
+                  </Link>
+                  <Link onClick={toggleDropdownMenu} to="/logout">
+                    Logout
+                  </Link>
+                </div>
+              )}
+            </div>
+          ) : (
+            <button onClick={openRegisterPopup}>Register</button>
+          )}
+        </div>
+        {showRegisterPopup && <Register onClose={closeRegisterPopup} />}
       </div>
-      {showRegisterPopup && <Register onClose={closeRegisterPopup} />}
-    </div>
+      <div></div>
+    </>
   );
 };
 

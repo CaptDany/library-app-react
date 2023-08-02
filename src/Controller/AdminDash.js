@@ -1,27 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import Register from "../../Controller/Register";
-import "../stylesheets/styles.css";
+import "../view/stylesheets/styles.css";
 
 const AdminDash = () => {
-  const [showRegisterPopup, setShowRegisterPopup] = useState(false);
-
-  const openRegisterPopup = () => {
-    setShowRegisterPopup(true);
-  };
-
-  const closeRegisterPopup = () => {
-    setShowRegisterPopup(false);
-  };
-
-  useEffect(() => {
-    // Reload the page as soon as the component loads
-    window.location.reload();
-  }, []);
-
   return (
     <div className="home-container">
-      <h1>Welcome to the Library App!</h1>
+      <div
+        style={{
+          minHeight: "10vh",
+        }}
+      />
+      <h1>Welcome to the Administrator Library App!</h1>
+      <div className="dash-image-container">
+        <img
+          className="dash-image"
+          src="https://img.freepik.com/free-vector/library-concept-illustration_114360-2673.jpg?w=1380&t=st=1690995819~exp=1690996419~hmac=61da2f56ca330d55c853034d0335081df64a82e19f8d51cb2c97d00402131feb"
+          alt="Tiny library"
+        />
+      </div>
       <p>
         This is a library management app where readers can search for books,
         reserve books, and manage their borrowings. The staff can validate book
@@ -46,8 +42,6 @@ const AdminDash = () => {
           <Link to="/manage">User Management</Link>
         </li>
       </ul>
-      <button onClick={openRegisterPopup}>Register</button>
-      {showRegisterPopup && <Register onClose={closeRegisterPopup} />}
     </div>
   );
 };

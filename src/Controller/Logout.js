@@ -11,7 +11,12 @@ const Logout = () => {
   };
 
   return (
-    <div>
+    <div className="content-holder">
+      <div
+        style={{
+          minHeight: "10vh",
+        }}
+      ></div>
       <h2>Logout</h2>
       <p>Are you sure you want to logout?</p>
       <button onClick={handleLogout}>Logout</button>

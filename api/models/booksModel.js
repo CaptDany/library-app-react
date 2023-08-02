@@ -1,4 +1,4 @@
-const mongoose = require("../conexion_mongo");
+const mongoose = require("../mongodbconnection.js");
 const Book = mongoose.model("Book", {
   book_title: {
     type: String,

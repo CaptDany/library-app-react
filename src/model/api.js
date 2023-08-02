@@ -1,4 +1,6 @@
+import React, { useEffect, useState } from "react";
 const API_BASE_URL = "http://localhost:5000/library";
+const token = localStorage.getItem("token");
 
 export const searchBooks = async (searchTerm) => {
   try {
@@ -118,6 +120,27 @@ export const updateUser = async (userId, userName, userRole) => {
   }
 };
 
+export const login = async (username, pass) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, pass }),
+    });
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error logging in:", error);
+    return { success: false };
+  }
+};
+
+//*
 export const addNewBook = async (
   book_title,
   author,
@@ -142,3 +165,48 @@ export const addNewBook = async (
     return { success: false };
   }
 };
+//*/
+
+/*
+export const addNewBook = async (
+  book_title,
+  author,
+  date_published,
+  publisher
+) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/books/`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            book_title,
+            author,
+            date_published,
+            publisher,
+          }),
+        });
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const newData = await response.json();
+        setData(newData);
+        return data;
+      } catch (error) {
+        console.error("Error adding book:", error);
+        return { success: false };
+      }
+    };
+
+    fetchData();
+  }, [token]);
+
+  return { success: true };
+};
+*/

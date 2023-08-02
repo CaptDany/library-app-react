@@ -1,5 +1,7 @@
 var express = require("express");
 var router = express.Router();
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 var User = require("../models/user");
 var Book = require("../models/booksModel");
 
@@ -67,12 +69,12 @@ router.delete("/books/:id", async function (req, res) {
   res.send(true);
 });
 
-module.exports = router;
-
 router.post("/users/", async function (req, res, next) {
+  const hashedPassword = await bcrypt.hash(req.body.pass, 10);
+
   const user = new User({
     username: req.body.username,
-    pass: req.body.pass,
+    pass: hashedPassword,
     email: req.body.email,
     birthyear: req.body.birthyear,
     name: req.body.name,
@@ -85,6 +87,42 @@ router.post("/users/", async function (req, res, next) {
 router.get("/users/", async function (req, res) {
   const users = await User.find();
   res.send(users);
+});
+
+router.post("/login", async (req, res) => {
+  try {
+    const { username, pass } = req.body;
+    console.log("Received login request for username:", username);
+
+    const user = await User.findOne({
+      $or: [{ username }, { email: username }],
+    });
+    if (!user) {
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid credentials" });
+    }
+
+    // Validate the password
+    const isMatch = await bcrypt.compare(pass, user.pass);
+    console.log("Match confirmation from bcrypt:", isMatch);
+    if (!isMatch) {
+      res.status(401).json({ success: false, message: "Invalid credentials" });
+      return console.log(res._contentLength);
+    }
+
+    // Generate a JWT token (optional)
+    const token = jwt.sign({ userId: user._id }, "your-secret-key", {
+      expiresIn: "1h", // Set the token expiration time (e.g., 1 hour)
+    });
+
+    // Return a success response with the token
+    res.json({ success: true, token });
+    console.log(res.success, res.token);
+  } catch (error) {
+    console.error("Error logging in:", error);
+    res.status(500).json({ success: false, message: "An error occurred" });
+  }
 });
 
 router.put("/users/", async function (req, res) {

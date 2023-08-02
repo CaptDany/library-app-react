@@ -6,6 +6,7 @@ import BookReservationPage from "./view/pages/BookReservationPage";
 import BookValidationPage from "./view/pages/BookValidationPage";
 import UserManagementPage from "./view/pages/UserManagementPage";
 import AddBookPage from "./view/pages/AddBookPage";
+import LoginPage from "./view/pages/LoginPage";
 import NoPage from "./view/pages/NoPage";
 import TopBar from "./Controller/Topbar.js";
 
@@ -23,6 +24,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/search" element={<BookSearchPage />} />
         <Route path="/reserve" element={<BookReservationPage />} />
         <Route path="/validate" element={<BookValidationPage />} />

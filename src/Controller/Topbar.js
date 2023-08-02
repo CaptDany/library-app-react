@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Register from "./Register";
+import { Link } from "react-router-dom";
 import "../view/stylesheets/TopBar.css";
 
 const TopBar = ({ isLogged, loggedInUser }) => {
@@ -16,7 +17,9 @@ const TopBar = ({ isLogged, loggedInUser }) => {
   return (
     <div className="top-bar">
       <div className="top-bar-content">
-        <h2>The Library</h2>
+        <Link to="/home" className="logo">
+          <h2>The Library</h2>
+        </Link>
         {isLogged ? (
           <p>Welcome, {loggedInUser.username}!</p>
         ) : (

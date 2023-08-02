@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { login } from "../model/api.js";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ onLogin }) => {
   const [username, setUsername] = useState("");
   const [pass, setPass] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -14,7 +16,9 @@ const Login = () => {
       if (response.success) {
         // Handle successful login, store authentication token, etc.
         console.log("Login successful!");
+        localStorage.setItem("token", response.token);
         onLogin(response.token);
+        navigate("/home");
       } else {
         setErrorMessage("Invalid credentials. Please try again.");
       }
@@ -35,12 +39,14 @@ const Login = () => {
           onChange={(e) => setUsername(e.target.value)}
           placeholder="Username or Email"
         />
+        <div />
         <input
           type="password"
           value={pass}
           onChange={(e) => setPass(e.target.value)}
           placeholder="Password"
         />
+        <div />
         <button type="submit">Login</button>
       </form>
     </div>

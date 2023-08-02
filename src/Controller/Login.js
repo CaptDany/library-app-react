@@ -16,8 +16,14 @@ const Login = ({ onLogin }) => {
       if (response.success) {
         // Handle successful login, store authentication token, etc.
         localStorage.setItem("token", response.token);
-        console.log("Login successful! Token:", localStorage.getItem("token"));
         localStorage.setItem("currentUser", response.user.username);
+        localStorage.setItem("adminUser", response.user.isAdmin);
+        console.log("Login successful! Token:", localStorage.getItem("token"));
+        console.log(
+          "Current user is",
+          <b>{response.user.isAdmin ? "" : "not"}</b>,
+          "an admin."
+        );
         onLogin(response.token);
         window.location.href = "/home";
       } else {

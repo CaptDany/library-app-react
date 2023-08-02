@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../stylesheets/styles.css";
 
-const AdminDash = () => {
+const UserDash = () => {
   return (
     <div className="home-container">
       <div
@@ -12,9 +12,8 @@ const AdminDash = () => {
       />
       <h1>Welcome to the Library App!</h1>
       <p>
-        This is a library management app where readers can search for books,
-        reserve books, and manage their borrowings. The staff can validate book
-        borrowings and returns and manage users.
+        This is a library viewing app where readers can search for books,
+        reserve books, and manage their borrowings.
       </p>
       <h2>Get Started</h2>
       <p>Please select an option below:</p>
@@ -39,4 +38,4 @@ const AdminDash = () => {
   );
 };
 
-export default AdminDash;
+export default UserDash;

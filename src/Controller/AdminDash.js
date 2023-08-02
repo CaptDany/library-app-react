@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Register from "../../Controller/Register";
 import "../stylesheets/styles.css";
@@ -13,6 +13,11 @@ const AdminDash = () => {
   const closeRegisterPopup = () => {
     setShowRegisterPopup(false);
   };
+
+  useEffect(() => {
+    // Reload the page as soon as the component loads
+    window.location.reload();
+  }, []);
 
   return (
     <div className="home-container">

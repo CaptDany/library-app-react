@@ -17,6 +17,11 @@ const BookSearch = () => {
 
   return (
     <div>
+      <div
+        style={{
+          minHeight: "15vh",
+        }}
+      />
       <h2 className="inner-page-titles">Book Search</h2>
       <div className="content-holder">
         <input
@@ -28,7 +33,7 @@ const BookSearch = () => {
         <button onClick={handleSearch}>Search</button>
 
         {searchResults.length > 0 ? (
-          <div>
+          <div className="content-holder">
             <h3>Search Results:</h3>
             <ul>
               {searchResults.map((book) => (

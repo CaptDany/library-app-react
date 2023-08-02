@@ -15,10 +15,11 @@ const Login = ({ onLogin }) => {
       console.log("Response from API:", response);
       if (response.success) {
         // Handle successful login, store authentication token, etc.
-        console.log("Login successful!");
         localStorage.setItem("token", response.token);
+        console.log("Login successful! Token:", localStorage.getItem("token"));
+        localStorage.setItem("currentUser", response.user.username);
         onLogin(response.token);
-        navigate("/dashboard");
+        window.location.href = "/home";
       } else {
         setErrorMessage("Invalid credentials. Please try again.");
       }
@@ -30,6 +31,11 @@ const Login = ({ onLogin }) => {
 
   return (
     <div>
+      <div
+        style={{
+          minHeight: "15vh",
+        }}
+      />
       <h2 className="inner-page-titles">Login</h2>
       {errorMessage && <p>{errorMessage}</p>}
       <form onSubmit={handleLogin}>

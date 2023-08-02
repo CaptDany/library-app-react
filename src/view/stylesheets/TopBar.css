@@ -50,3 +50,37 @@ button:hover {
 .logo:hover {
   color: #ababab;
 }
+
+.username {
+  text-decoration: none;
+  color: inherit;
+  user-select: none;
+}
+
+.username:hover {
+  color: #ababab;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 18vw;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  min-width: 120px; /* Set a minimum width for the dropdown menu */
+}
+
+/* Styling for dropdown menu links */
+.dropdown-menu a {
+  color: #333;
+  text-decoration: none;
+  padding: 8px 12px;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f2f2f2;
+}

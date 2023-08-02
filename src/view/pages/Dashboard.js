@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "../stylesheets/styles.css";
 
 const AdminDash = () => {
   return (
     <div className="home-container">
+      <div
+        style={{
+          minHeight: "10vh",
+        }}
+      />
       <h1>Welcome to the Library App!</h1>
       <p>
         This is a library management app where readers can search for books,

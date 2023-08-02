@@ -17,7 +17,7 @@ The Library Management App is a web application built with React and Express tha
 ## Technologies Used
 
 - Frontend: React, React Router, Axios
-- Backend: Node.js, Express, MongoDB (using MongoDB Atlas)
+- Backend: Node.js, Express, MongoDB
 
 ## Getting Started
 
@@ -26,9 +26,9 @@ To run the project locally, follow the instructions below:
 ### Prerequisites
 
 - Node.js and npm installed on your machine
-- MongoDB Atlas account and connection string
+- MongoDB server running locally on the default port (27017) or a custom port (if you have configured MongoDB to use a different port)
 
-### Installation
+### Frontend Installation
 
 1. Clone the repository:
 
@@ -37,13 +37,13 @@ git clone https://github.com/your-username/library-management-app.git
 cd library-management-app
 ```
 
-2. Install dependencies for both the frontend and backend:
+2. Install dependencies for the frontend:
 
 ```
 npm install
 ```
 
-### Running the App
+### Frontend Running
 
 1. Start the frontend:
 
@@ -55,7 +55,45 @@ The frontend development server will run at `http://localhost:3000`.
 
 3. Open your web browser and navigate to `http://localhost:3000` to access the app.
 
-### Deployment
+### Backend Installation
+
+1. Navigate to the backend directory:
+
+```
+cd \library-app-react\api
+```
+
+2. Install the required dependencies:
+
+```
+npm install
+```
+
+### Backend Configuration
+
+1. Open the `app.js` file located in the `api` directory.
+
+2. In the `app.js` file, locate the following line and replace `YOUR_LOCAL_MONGODB_CONNECTION_STRING` with your actual MongoDB connection string:
+
+```javascript
+const mongoURI = "YOUR_LOCAL_MONGODB_CONNECTION_STRING";
+```
+
+3. If your MongoDB server is running on a custom port (not the default 27017), make sure to include the port number in the connection string.
+
+### Backend Running
+
+Once you have completed the installation and configuration steps, you can start the backend server:
+
+```
+npm start
+```
+
+The backend server will run at `http://localhost:5000`.
+
+**Note:** Make sure that your MongoDB server is running and accessible using the provided connection string.
+
+## Deployment
 
 To deploy the app to a production server, follow the deployment process for both the frontend and backend components. Ensure that you set appropriate environment variables for production settings.
 

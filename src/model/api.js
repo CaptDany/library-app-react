@@ -1,5 +1,4 @@
-const API_BASE_URL =
-  "https://us-east-2.aws.data.mongodb-api.com/app/data-orkkc/endpoint/data/v1/action/findOne";
+const API_BASE_URL = "http://localhost:5000";
 
 export const searchBooks = async (searchTerm) => {
   try {
@@ -114,5 +113,30 @@ export const updateUser = async (userId, userName, userRole) => {
   } catch (error) {
     console.error("Error updating user:", error);
     return false;
+  }
+};
+
+export const addNewBook = async (
+  book_title,
+  author,
+  date_published,
+  publisher
+) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/books/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ book_title, author, date_published, publisher }),
+    });
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error adding book:", error);
+    return { success: false };
   }
 };

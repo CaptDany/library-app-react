@@ -32,7 +32,9 @@ const BookSearch = () => {
           <ul>
             {searchResults.map((book) => (
               <li key={book.id}>
-                {book.title} by {book.author} - {book.editor}
+                {book.book_title} by {book.author} - {book.date_published},{" "}
+                {book.publisher}. The book is{" "}
+                <b>{book.isReserved ? "currently" : "not"}</b> reserved.
               </li>
             ))}
           </ul>

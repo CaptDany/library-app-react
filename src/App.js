@@ -5,6 +5,7 @@ import BookSearchPage from "./view/pages/BookSearchPage";
 import BookReservationPage from "./view/pages/BookReservationPage";
 import BookValidationPage from "./view/pages/BookValidationPage";
 import UserManagementPage from "./view/pages/UserManagementPage";
+import AddBookPage from "./view/pages/AddBookPage";
 import NoPage from "./view/pages/NoPage";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/reserve" element={<BookReservationPage />} />
         <Route path="/validate" element={<BookValidationPage />} />
         <Route path="/manage" element={<UserManagementPage />} />
+        <Route path="/add-book" element={<AddBookPage />} />
         <Route path="*" element={<NoPage />} />
       </Routes>
     </>

@@ -1,4 +1,4 @@
-const mongoose = require("../mongodbconnection.js");
+const mongoose = require("../booksconnection.js");
 const Book = mongoose.model("Book", {
   book_title: {
     type: String,
@@ -15,6 +15,10 @@ const Book = mongoose.model("Book", {
   },
   publisher: {
     type: String,
+    required: true,
+  },
+  isReserved: {
+    type: Boolean,
     required: true,
   },
 });

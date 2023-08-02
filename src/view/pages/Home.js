@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Register from "../../Controller/Register";
+import "../stylesheets/styles.css";
 
 const Home = () => {
   const [showRegisterPopup, setShowRegisterPopup] = useState(false);
@@ -14,7 +15,7 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div className="home-container">
       <h1>Welcome to the Library App!</h1>
       <p>
         This is a library management app where readers can search for books,

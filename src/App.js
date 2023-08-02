@@ -7,10 +7,18 @@ import BookValidationPage from "./view/pages/BookValidationPage";
 import UserManagementPage from "./view/pages/UserManagementPage";
 import AddBookPage from "./view/pages/AddBookPage";
 import NoPage from "./view/pages/NoPage";
+import TopBar from "./Controller/Topbar.js";
 
 function App() {
+  const isLogged = false;
+
+  const loggedInUser = {
+    username: "Dany", // Replace with the actual username
+  };
+
   return (
     <>
+      <TopBar isLogged={isLogged} loggedInUser={loggedInUser} />
       <Routes>
         <Route index element={<Home />} />
         <Route path="/" element={<Navigate to="/home" />} />

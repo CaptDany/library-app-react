@@ -44,8 +44,8 @@ const Register = ({ onClose }) => {
   };
 
   return (
-    <div className="register-popup">
-      <div className="register-content">
+    <div className="register-modal-overlay">
+      <div className="register-modal-content">
         <h2>Register</h2>
         {message && <p>{message}</p>}
         <form onSubmit={handleRegister}>

@@ -197,6 +197,26 @@ router.get("/users/", async function (req, res) {
   res.send(users);
 });
 
+router.get("/users/:email/:phone", async function (req, res) {
+  try {
+    const email = req.params.email;
+    const phone = req.params.phone;
+
+    // Search for the user with the provided email and phone number
+    const user = await User.findOne({ email, phone });
+
+    if (!user) {
+      return res.json({ success: true });
+    }
+
+    // Return the user data if found
+    return res.json({ success: false, message: "Another user found" });
+  } catch (error) {
+    console.error("Error searching user:", error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+});
+
 router.post("/login", async (req, res) => {
   try {
     const { username, pass } = req.body;
@@ -234,6 +254,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.put("/users/", async function (req, res) {
+  const hashedPassword = await bcrypt.hash(req.body.pass, 10);
   await User.findOneAndUpdate(
     {
       _id: req.body._id,

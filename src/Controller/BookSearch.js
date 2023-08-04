@@ -4,6 +4,7 @@ import { searchBooks, reserveBook, editBook } from "../model/api.js";
 const BookSearch = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+
   const uid = localStorage.getItem("currentUser");
 
   const handleSearch = async () => {

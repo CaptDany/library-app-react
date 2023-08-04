@@ -10,10 +10,52 @@ export const searchBooks = async (searchTerm) => {
       throw new Error("Network response was not ok");
     }
     const data = await response.json();
+    console.log(data);
     return data;
   } catch (error) {
     console.error("Error searching books:", error);
     return [];
+  }
+};
+
+export const addNewBook = async (
+  book_title,
+  author,
+  date_published,
+  publisher
+) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/books/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ book_title, author, date_published, publisher }),
+    });
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error adding book:", error);
+    return { success: false };
+  }
+};
+
+export const getUserBorrowedBooks = async (username) => {
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/user/${username}/borrowed-books`
+    );
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching user's borrowed books and debt:", error);
+    throw error;
   }
 };
 
@@ -108,6 +150,14 @@ export const addUser = async (userData) => {
       body: JSON.stringify(userData), // Pass the entire user data object in the request body
     });
 
+    fetch(`${API_BASE_URL}/debts/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
+
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
@@ -156,31 +206,6 @@ export const login = async (username, pass) => {
     return data;
   } catch (error) {
     console.error("Error logging in:", error);
-    return { success: false };
-  }
-};
-
-export const addNewBook = async (
-  book_title,
-  author,
-  date_published,
-  publisher
-) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/books/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ book_title, author, date_published, publisher }),
-    });
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error adding book:", error);
     return { success: false };
   }
 };

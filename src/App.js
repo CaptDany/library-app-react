@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Navigate, Routes, Route } from "react-router-dom";
-import Home from "./view/pages/HomePage";
-import AdminDash from "./view/pages/AdminDashboard";
-import UserDash from "./view/pages/UserDashboard";
-import BookSearchPage from "./view/pages/BookSearchPage";
-import BookReservationPage from "./view/pages/BookReservationPage";
-import BookValidationPage from "./view/pages/BookValidationPage";
-import UserManagementPage from "./view/pages/UserManagementPage";
 import AddBookPage from "./view/pages/AddBookPage";
+import AdminDash from "./view/pages/AdminDashboard";
+import BookSearchPage from "./view/pages/BookSearchPage";
+import BookValidationPage from "./view/pages/BookValidationPage";
+import Home from "./view/pages/HomePage";
 import LoginPage from "./view/pages/LoginPage";
 import NoPage from "./view/pages/NoPage";
+import ReservationManagementPage from "./view/pages/ReservationManagementPage";
 import TopBar from "./Controller/Topbar.js";
+import UserDash from "./view/pages/UserDashboard";
+import UserManagementPage from "./view/pages/UserManagementPage";
 import Logout from "./Controller/Logout";
 
 function App() {
@@ -51,7 +51,7 @@ function App() {
               <Route path="/dashboard" element={<AdminDash />} />
               <Route path="/" element={<Navigate to="/dashboard" />} />
               <Route path="/search" element={<BookSearchPage />} />
-              <Route path="/reserve" element={<BookReservationPage />} />
+              <Route path="/reserve" element={<ReservationManagementPage />} />
               <Route path="/validate" element={<BookValidationPage />} />
               <Route path="/manage" element={<UserManagementPage />} />
               <Route path="/add-book" element={<AddBookPage />} />
@@ -64,7 +64,7 @@ function App() {
               <Route path="/home" element={<UserDash />} />
               <Route path="/" element={<Navigate to="/dashboard" />} />
               <Route path="/search" element={<BookSearchPage />} />
-              <Route path="/reserve" element={<BookReservationPage />} />
+              <Route path="/reserve" element={<ReservationManagementPage />} />
               <Route path="*" element={<NoPage />} />
             </>
           )

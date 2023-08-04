@@ -33,7 +33,7 @@ const AdminDash = () => {
           <Link to="/add-book">Add a Book</Link>
         </li>
         <li>
-          <Link to="/reserve">Reserve Book</Link>
+          <Link to="/reserve">Manage Reservations</Link>
         </li>
         <li>
           <Link to="/validate">Book Validation</Link>

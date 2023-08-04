@@ -24,6 +24,19 @@ const Register = ({ onClose }) => {
         last: lastName,
       };
 
+      const loans = {
+        bookA: "not",
+        bookB: "not",
+        bookC: "not",
+        bookADate: new Date().setFullYear(new Date().getFullYear() + 120),
+        bookBDate: new Date().setFullYear(new Date().getFullYear() + 120),
+        bookCDate: new Date().setFullYear(new Date().getFullYear() + 120),
+      };
+
+      const totalLoans = 0;
+      const debt = 0;
+      const authorized = true;
+
       const data = {
         username,
         email,
@@ -33,6 +46,10 @@ const Register = ({ onClose }) => {
         isAdmin,
         phone,
         address,
+        debt,
+        loans,
+        totalLoans,
+        authorized,
       };
 
       const response = await addUser(data);

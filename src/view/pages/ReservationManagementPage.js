@@ -1,11 +1,11 @@
 import React from "react";
-import BookReservation from "../../Controller/BookReservation";
+import "../stylesheets/styles.css";
+import UserBorrowedBooks from "../../Controller/UserBorrowedBooks";
 
 const BookReservationPage = () => {
   return (
     <div>
-      <h1>Book Reservation Page</h1>
-      <BookReservation />
+      <UserBorrowedBooks />
     </div>
   );
 };

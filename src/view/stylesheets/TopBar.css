@@ -30,6 +30,8 @@ body {
   color: inherit;
   border: none;
   padding: 2px 5vw;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .username:hover {

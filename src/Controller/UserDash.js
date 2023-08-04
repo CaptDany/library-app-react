@@ -29,7 +29,7 @@ const UserDash = () => {
           <Link to="/search">Search Books</Link>
         </li>
         <li>
-          <Link to="/user/reserve">Reserve Book</Link>
+          <Link to="/reserve">Manage Reservations</Link>
         </li>
         <li>
           <Link to="/manage">Profile Settings</Link>

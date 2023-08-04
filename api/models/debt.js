@@ -1,6 +1,33 @@
 const mongoose = require("../connection.js");
 const { Schema } = mongoose;
 
+const loanSchema = new Schema({
+  bookA: {
+    type: String,
+    required: true,
+  },
+  bookADate: {
+    type: Date,
+    required: true,
+  },
+  bookB: {
+    type: String,
+    required: true,
+  },
+  bookBDate: {
+    type: Date,
+    required: true,
+  },
+  bookC: {
+    type: String,
+    required: true,
+  },
+  bookCDate: {
+    type: Date,
+    required: true,
+  },
+});
+
 const debtSchema = new Schema({
   username: {
     type: String,
@@ -10,10 +37,7 @@ const debtSchema = new Schema({
     type: Number,
     required: true,
   },
-  loans: {
-    type: Number,
-    required: true,
-  },
+  loans: loanSchema,
   totalLoans: {
     type: Number,
     required: true,

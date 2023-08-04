@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 var User = require("../models/user");
 var Book = require("../models/booksModel");
-var Debt = require("../models/debts");
+var Debt = require("../models/debt");
 
 router.post("/books/", async function (req, res, next) {
   const book = new Book({
@@ -79,13 +79,13 @@ router.put("/books/:id", async function (req, res) {
 router.post("/books/:id/reserve", async function (req, res) {
   try {
     const bookId = req.params.id;
+    const uid = req.body.uid;
+
     if (!bookId) {
       return res
         .status(404)
         .json({ success: false, message: "Book id was not passed" });
     }
-    const uid = req.body.uid;
-    console.log(uid);
 
     const book = await Book.findById(bookId);
 
@@ -95,7 +95,6 @@ router.post("/books/:id/reserve", async function (req, res) {
         .json({ success: false, message: "Book not found" });
     }
 
-    // Check if the book is already reserved
     if (book.isReserved) {
       return res
         .status(400)
@@ -106,6 +105,45 @@ router.post("/books/:id/reserve", async function (req, res) {
     book.isReserved = true;
     book.lastReservedBy = uid;
     await book.save();
+
+    if (!uid) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Debt id was not passed" });
+    }
+
+    const debt = await Debt.findOne({ username: uid });
+    if (!debt) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
+    if (debt.loans >= 3 || debt.debt > 0 || debt.authorized == false) {
+      debt.authorized = false;
+      return res.status(400).json({
+        success: false,
+        message: "User presents debt or has 3 or more books reserved",
+      });
+    }
+
+    if (!debt.loans.bookA) {
+      debt.loans.bookA = book.book_title;
+      debt.loans.bookADate = new Date();
+    } else if (!debt.loans.bookB) {
+      debt.loans.bookB = book.book_title;
+      debt.loans.bookBDate = new Date();
+    } else if (!debt.loans.bookC) {
+      debt.loans.bookC = book.book_title;
+      debt.loans.bookCDate = new Date();
+    } else {
+      return res
+        .status(400)
+        .json({ success: false, message: "User has already borrowed 3 books" });
+    }
+
+    debt.totalLoans = debt.totalLoans + 1;
+    await debt.save();
 
     res.json({ success: true, message: "Book reserved successfully" });
   } catch (error) {
@@ -257,3 +295,67 @@ router.delete("/debt/:id", async function (req, res) {
 });
 
 module.exports = router;
+
+router.get("/user/:username/borrowed-books", async function (req, res) {
+  const username = req.params.username;
+
+  try {
+    const userDebt = await Debt.findOne({ username });
+
+    if (!userDebt) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
+    const borrowedBooks = [];
+
+    if (userDebt.loans.bookA && userDebt.loans.bookADate) {
+      borrowedBooks.push({
+        title: userDebt.loans.bookA,
+        borrowedDate: userDebt.loans.bookADate,
+      });
+    }
+    if (userDebt.loans.bookB && userDebt.loans.bookBDate) {
+      borrowedBooks.push({
+        title: userDebt.loans.bookB,
+        borrowedDate: userDebt.loans.bookBDate,
+      });
+    }
+    if (userDebt.loans.bookC && userDebt.loans.bookCDate) {
+      borrowedBooks.push({
+        title: userDebt.loans.bookC,
+        borrowedDate: userDebt.loans.bookCDate,
+      });
+    }
+
+    const currentDate = new Date();
+    const authorized = userDebt.authorized;
+    var debt = userDebt.debt;
+
+    const borrowedBooksData = borrowedBooks.map((book) => {
+      // Calculate debt based on the borrowed date
+      const borrowedDate = new Date(book.borrowedDate);
+      const timeDiff = currentDate.getTime() - borrowedDate.getTime();
+      const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+      const bookDebt = daysDiff > 3 ? (daysDiff - 3) * 10 : 0;
+      debt = debt + bookDebt;
+
+      return {
+        title: book.title,
+        borrowedDate: book.borrowedDate,
+        debt: bookDebt,
+      };
+    });
+
+    res.json({
+      success: true,
+      authorized,
+      borrowedBooks: borrowedBooksData,
+      totalDebt: debt,
+    });
+  } catch (error) {
+    console.error("Error fetching borrowed books and debt:", error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+});

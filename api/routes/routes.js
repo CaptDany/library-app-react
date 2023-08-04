@@ -258,7 +258,7 @@ router.put("/users/", async function (req, res) {
   const hashedPassword = await bcrypt.hash(req.body.pass, 10);
   const user = await User.findOneAndUpdate(
     {
-      _id: req.params._id,
+      username: req.params.username,
     },
     {
       username: req.body.username,

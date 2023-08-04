@@ -184,9 +184,9 @@ export const checkUser = async (email, phone) => {
   }
 };
 
-export const updateUser = async (userId, updatedData) => {
+export const updateUser = async (username, updatedData) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/users/${userId}`, {
+    const response = await fetch(`${API_BASE_URL}/users/${username}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

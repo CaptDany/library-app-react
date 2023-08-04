@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { addUser } from "../model/api";
+import { addUser, checkUser } from "../model/api";
 import { Link } from "react-router-dom";
 
 const Register = ({ onClose }) => {
@@ -51,7 +51,11 @@ const Register = ({ onClose }) => {
         totalLoans,
         authorized,
       };
-
+      const check = await checkUser(email, phone);
+      console.log(check);
+      if (!check.success) {
+        return console.log("User is already registered with phone or email");
+      }
       const response = await addUser(data);
       console.log(response);
       if (response._id) {

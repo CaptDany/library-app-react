@@ -52,7 +52,7 @@ const UserBorrowedBooks = () => {
           <li key={book.title}>
             <strong>Title:</strong> {book.title} <br />
             <strong>Borrowed Date:</strong> {book.borrowedDate} <br />
-            <strong>Debt:</strong> {book.debt}
+            <strong>Debt:</strong> ${book.debt}
           </li>
         ))}
       </ul>

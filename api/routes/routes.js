@@ -95,16 +95,11 @@ router.post("/books/:id/reserve", async function (req, res) {
         .json({ success: false, message: "Book not found" });
     }
 
-    if (book.isReserved) {
+    if (book.isReserved && book.lastReservedBy != uid) {
       return res
         .status(400)
         .json({ success: false, message: "Book is already reserved" });
     }
-
-    // Set the book as reserved
-    book.isReserved = true;
-    book.lastReservedBy = uid;
-    await book.save();
 
     if (!uid) {
       return res
@@ -127,25 +122,48 @@ router.post("/books/:id/reserve", async function (req, res) {
       });
     }
 
-    if (!debt.loans.bookA) {
-      debt.loans.bookA = book.book_title;
-      debt.loans.bookADate = new Date();
-    } else if (!debt.loans.bookB) {
-      debt.loans.bookB = book.book_title;
-      debt.loans.bookBDate = new Date();
-    } else if (!debt.loans.bookC) {
-      debt.loans.bookC = book.book_title;
-      debt.loans.bookCDate = new Date();
+    book.isReserved = !book.isReserved;
+    book.lastReservedBy = uid;
+
+    if (book.isReserved) {
+      if (debt.loans.bookA == "not") {
+        debt.loans.bookA = book.book_title;
+        debt.loans.bookADate = new Date();
+      } else if (debt.loans.bookB == "not") {
+        debt.loans.bookB = book.book_title;
+        debt.loans.bookBDate = new Date();
+      } else if (debt.loans.bookC == "not") {
+        debt.loans.bookC = book.book_title;
+        debt.loans.bookCDate = new Date();
+      } else {
+        return res.status(400).json({
+          success: false,
+          message: "User has already borrowed 3 books",
+        });
+      }
     } else {
-      return res
-        .status(400)
-        .json({ success: false, message: "User has already borrowed 3 books" });
+      if (debt.loans.bookA == book.book_title) {
+        debt.loans.bookA = "not";
+        debt.loans.bookADate = new Date();
+      } else if (debt.loans.bookB == book.book_title) {
+        debt.loans.bookB = "not";
+        debt.loans.bookBDate = new Date();
+      } else if (debt.loans.bookC == book.book_title) {
+        debt.loans.bookC = "not";
+        debt.loans.bookCDate = new Date();
+      } else {
+        return res.status(400).json({
+          success: false,
+          message: "User never borrowed that book",
+        });
+      }
     }
 
     debt.totalLoans = debt.totalLoans + 1;
+    await book.save();
     await debt.save();
 
-    res.json({ success: true, message: "Book reserved successfully" });
+    res.json({ success: true, message: "Executed successfully" });
   } catch (error) {
     console.error("Error reserving book:", error);
     res.status(500).json({ success: false, message: "Internal server error" });
@@ -256,23 +274,6 @@ router.get("/debts/", async function (req, res) {
   res.send(debt);
 });
 
-router.get("/debt/check", async function (req, res) {
-  const user = req.query.user;
-
-  try {
-    // Query the database for books that match the search term in title, author, or editor fields
-    const result = await user.find({
-      username: { $regex: searchTerm, $options: "i" },
-    });
-
-    // Return the search results as a JSON response
-    res.json(result);
-  } catch (error) {
-    console.error("Error searching user debt:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
 router.put("/debts/", async function (req, res) {
   await Debt.findOneAndUpdate(
     {
@@ -330,8 +331,16 @@ router.get("/user/:username/borrowed-books", async function (req, res) {
     }
 
     const currentDate = new Date();
-    const authorized = userDebt.authorized;
+    var authorized = true;
     var debt = userDebt.debt;
+    if (
+      debt > 0 ||
+      (userDebt.loans.bookC != "not" &&
+        userDebt.loans.bookB != "not" &&
+        userDebt.loans.bookA != "not")
+    ) {
+      authorized = false;
+    }
 
     const borrowedBooksData = borrowedBooks.map((book) => {
       // Calculate debt based on the borrowed date

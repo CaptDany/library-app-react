@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { searchBooks, reserveBook, editBook } from "../model/api.js";
+import {
+  searchBooks,
+  reserveBook,
+  editBook,
+  getUserBorrowedBooks,
+} from "../model/api.js";
 
 const BookSearch = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -26,8 +31,17 @@ const BookSearch = () => {
     }
   };
 
-  const handleReserveBook = async (bookId, uid) => {
+  const handleReserveBook = async (isReserved, lastReservedBy, bookId, uid) => {
     try {
+      if (isReserved && uid !== lastReservedBy) {
+        return <div>This book ain't yours</div>;
+      }
+
+      const userDebtInfo = await getUserBorrowedBooks(uid);
+      console.log(userDebtInfo);
+      if (!userDebtInfo.authorized) {
+        return console.log("User is not authorized to borrow.");
+      }
       const response = await reserveBook(bookId, uid);
       console.log(response);
 
@@ -93,8 +107,17 @@ const BookSearch = () => {
                           Edit
                         </button>
                       )}
-                      <button onClick={() => handleReserveBook(book._id, uid)}>
-                        {book.isReserved ? "Cancel Reservation" : "Reserve"}
+                      <button
+                        onClick={() =>
+                          handleReserveBook(
+                            book.isReserved,
+                            book.lastReservedBy,
+                            book._id,
+                            uid
+                          )
+                        }
+                      >
+                        {book.isReserved ? "Request return" : "Reserve"}
                       </button>
                     </td>
                   </tr>

@@ -87,7 +87,7 @@ export const reserveBook = async (bookId, uid) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ uid }),
+      body: JSON.stringify({ bookId, uid }),
     });
     if (!response.ok) {
       throw new Error("Network response was not ok");
@@ -167,6 +167,20 @@ export const addUser = async (userData) => {
   } catch (error) {
     console.error("Error adding user:", error);
     return false;
+  }
+};
+
+export const checkUser = async (email, phone) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/users/${email}/${phone}`);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching user's borrowed books and debt:", error);
+    throw error;
   }
 };
 

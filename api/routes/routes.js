@@ -95,7 +95,7 @@ router.post("/books/:id/reserve", async function (req, res) {
         .json({ success: false, message: "Book not found" });
     }
 
-    if (book.isReserved && book.lastReservedBy != uid) {
+    if (book.isReserved && book.lastReservedBy !== uid) {
       return res
         .status(400)
         .json({ success: false, message: "Book is already reserved" });
@@ -114,7 +114,7 @@ router.post("/books/:id/reserve", async function (req, res) {
         .json({ success: false, message: "User not found" });
     }
 
-    if (debt.loans >= 3 || debt.debt > 0 || debt.authorized == false) {
+    if (debt.loans >= 3 || debt.debt > 0 || debt.authorized === false) {
       debt.authorized = false;
       return res.status(400).json({
         success: false,
@@ -126,13 +126,13 @@ router.post("/books/:id/reserve", async function (req, res) {
     book.lastReservedBy = uid;
 
     if (book.isReserved) {
-      if (debt.loans.bookA == "not") {
+      if (debt.loans.bookA === "not") {
         debt.loans.bookA = book.book_title;
         debt.loans.bookADate = new Date();
-      } else if (debt.loans.bookB == "not") {
+      } else if (debt.loans.bookB === "not") {
         debt.loans.bookB = book.book_title;
         debt.loans.bookBDate = new Date();
-      } else if (debt.loans.bookC == "not") {
+      } else if (debt.loans.bookC === "not") {
         debt.loans.bookC = book.book_title;
         debt.loans.bookCDate = new Date();
       } else {
@@ -142,13 +142,13 @@ router.post("/books/:id/reserve", async function (req, res) {
         });
       }
     } else {
-      if (debt.loans.bookA == book.book_title) {
+      if (debt.loans.bookA === book.book_title) {
         debt.loans.bookA = "not";
         debt.loans.bookADate = new Date();
-      } else if (debt.loans.bookB == book.book_title) {
+      } else if (debt.loans.bookB === book.book_title) {
         debt.loans.bookB = "not";
         debt.loans.bookBDate = new Date();
-      } else if (debt.loans.bookC == book.book_title) {
+      } else if (debt.loans.bookC === book.book_title) {
         debt.loans.bookC = "not";
         debt.loans.bookCDate = new Date();
       } else {
@@ -364,9 +364,9 @@ router.get("/user/:username/borrowed-books", async function (req, res) {
     var debt = userDebt.debt;
     if (
       debt > 0 ||
-      (userDebt.loans.bookC != "not" &&
-        userDebt.loans.bookB != "not" &&
-        userDebt.loans.bookA != "not")
+      (userDebt.loans.bookC !== "not" &&
+        userDebt.loans.bookB !== "not" &&
+        userDebt.loans.bookA !== "not")
     ) {
       authorized = false;
     }

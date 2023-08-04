@@ -44,13 +44,19 @@ const ModifyProfile = () => {
   };
 
   return (
-    <div>
+    <div className="content-holder">
+            <div
+        style={{
+          minHeight: "10vh",
+        }}
+      />
       <h2>Modify Profile</h2>
       <div>
         <label>
           First Name:
           <input
             type="text"
+            placeholder="First name"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
@@ -61,7 +67,8 @@ const ModifyProfile = () => {
           Middle Name:
           <input
             type="text"
-            value={firstName}
+            placeholder="Middle name"
+            value={middleName}
             onChange={(e) => setMiddleName(e.target.value)}
           />
         </label>
@@ -71,6 +78,7 @@ const ModifyProfile = () => {
           Last Name:
           <input
             type="text"
+            placeholder="Last name"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
@@ -81,6 +89,7 @@ const ModifyProfile = () => {
           Email:
           <input
             type="email"
+            placeholder="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -91,6 +100,7 @@ const ModifyProfile = () => {
           Username:
           <input
             type="text"
+            placeholder="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -101,6 +111,7 @@ const ModifyProfile = () => {
           Password:
           <input
             type="password"
+            placeholder="Password"
             value={pass}
             onChange={(e) => setPass(e.target.value)}
           />
@@ -111,6 +122,7 @@ const ModifyProfile = () => {
           Birthyear:
           <input
             type="number"
+            placeholder="Birthyear"
             value={birthyear}
             onChange={(e) => setBirthyear(e.target.value)}
           />
@@ -121,6 +133,7 @@ const ModifyProfile = () => {
           Phone:
           <input
             type="text"
+            placeholder="Phone"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
           />
@@ -131,6 +144,7 @@ const ModifyProfile = () => {
           Address:
           <input
             type="text"
+            placeholder="Address"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
           />

@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 var User = require("../models/user");
 var Book = require("../models/booksModel");
+var Debt = require("../models/debts");
 
 router.post("/books/", async function (req, res, next) {
   const book = new Book({
@@ -128,6 +129,8 @@ router.post("/users/", async function (req, res, next) {
     birthyear: req.body.birthyear,
     name: req.body.name,
     isAdmin: req.body.isAdmin,
+    phone: req.body.phone,
+    address: req.body.address,
   });
   await user.save();
   res.send(user);
@@ -181,17 +184,74 @@ router.put("/users/", async function (req, res) {
     },
     {
       username: req.body.username,
-      pass: req.body.pass,
+      pass: hashedPassword,
       email: req.body.email,
       birthyear: req.body.birthyear,
       name: req.body.name,
       isAdmin: req.body.isAdmin,
+      phone: req.body.phone,
+      address: req.body.address,
     }
   );
   res.send(true);
 });
 
 router.delete("/users/:id", async function (req, res) {
+  await User.findOneAndDelete({ _id: req.params.id });
+  res.send(true);
+});
+
+router.post("/debts/", async function (req, res, next) {
+  const debt = new Debt({
+    username: req.body.username,
+    debt: req.body.debt,
+    loans: req.body.loans,
+    totalLoans: req.body.totalLoans,
+    authorized: req.body.authorized,
+  });
+  await debt.save();
+  res.send(debt);
+});
+
+router.get("/debts/", async function (req, res) {
+  const debt = await Debt.find();
+  res.send(debt);
+});
+
+router.get("/debt/check", async function (req, res) {
+  const user = req.query.user;
+
+  try {
+    // Query the database for books that match the search term in title, author, or editor fields
+    const result = await user.find({
+      username: { $regex: searchTerm, $options: "i" },
+    });
+
+    // Return the search results as a JSON response
+    res.json(result);
+  } catch (error) {
+    console.error("Error searching user debt:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/debts/", async function (req, res) {
+  await Debt.findOneAndUpdate(
+    {
+      _id: req.body._id,
+    },
+    {
+      username: req.body.username,
+      debt: req.body.debt,
+      loans: req.body.loans,
+      totalLoans: req.body.totalLoans,
+      authorized: req.body.authorized,
+    }
+  );
+  res.send(true);
+});
+
+router.delete("/debt/:id", async function (req, res) {
   await User.findOneAndDelete({ _id: req.params.id });
   res.send(true);
 });

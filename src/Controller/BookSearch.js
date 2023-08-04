@@ -87,9 +87,11 @@ const BookSearch = () => {
                     <td>{book.publisher}</td>
                     <td>{book.isReserved ? "Yes" : "No"}</td>
                     <td>
-                      <button onClick={() => handleEditBook(book._id, uid)}>
-                        Edit
-                      </button>
+                      {localStorage.getItem("adminUser") === "true" && (
+                        <button onClick={() => handleEditBook(book._id, uid)}>
+                          Edit
+                        </button>
+                      )}
                       <button onClick={() => handleReserveBook(book._id, uid)}>
                         {book.isReserved ? "Cancel Reservation" : "Reserve"}
                       </button>

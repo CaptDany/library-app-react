@@ -14,7 +14,7 @@ const AdminDash = () => {
       <div className="dash-image-container">
         <img
           className="dash-image"
-          src="https://img.freepik.com/free-vector/library-concept-illustration_114360-2673.jpg?w=1380&t=st=1690995819~exp=1690996419~hmac=61da2f56ca330d55c853034d0335081df64a82e19f8d51cb2c97d00402131feb"
+          src="https://img.freepik.com/free-vector/reading-book-concept-illustration_114360-8612.jpg?w=1480&t=st=1691105798~exp=1691106398~hmac=31e7d8f2801dd443ec7637191355f00e2d0e00cc4108e1c2c7e49da138561c7c"
           alt="Tiny library"
         />
       </div>

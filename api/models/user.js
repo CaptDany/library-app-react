@@ -39,6 +39,17 @@ const userSchema = new Schema({
     type: Boolean,
     required: true,
   },
+  //new stuff
+  //stuff i need in the other collection:
+  //current loans, debt, authorized for loan
+  phone: {
+    type: Number,
+    required: true,
+  },
+  address: {
+    type: String,
+    required: true,
+  },
 });
 
 const User = mongoose.model("User", userSchema);

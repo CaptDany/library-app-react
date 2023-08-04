@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 const Register = ({ onClose }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
   const [pass, setPass] = useState("");
   const [birthyear, setBirthyear] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -29,6 +31,8 @@ const Register = ({ onClose }) => {
         birthyear,
         name,
         isAdmin,
+        phone,
+        address,
       };
 
       const response = await addUser(data);
@@ -110,6 +114,24 @@ const Register = ({ onClose }) => {
               type="text"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
+            />
+          </label>
+
+          <label>
+            Phone:
+            <input
+              type="text"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+          </label>
+
+          <label>
+            Address:
+            <input
+              type="text"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
             />
           </label>
 

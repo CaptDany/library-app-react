@@ -184,20 +184,20 @@ export const checkUser = async (email, phone) => {
   }
 };
 
-export const updateUser = async (userId, userName, userRole) => {
+export const updateUser = async (userId, updatedData) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/users/update`, {
-      method: "POST",
+    const response = await fetch(`${API_BASE_URL}/users/${userId}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ userId, userName, userRole }),
+      body: JSON.stringify({ updatedData }),
     });
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
     const data = await response.json();
-    return data.success; // Assuming the backend returns an object with { success: true/false }
+    return data; // Assuming the backend returns an object with { success: true/false }
   } catch (error) {
     console.error("Error updating user:", error);
     return false;

@@ -254,10 +254,11 @@ router.post("/login", async (req, res) => {
 });
 
 router.put("/users/", async function (req, res) {
+  try{
   const hashedPassword = await bcrypt.hash(req.body.pass, 10);
-  await User.findOneAndUpdate(
+  const user = await User.findOneAndUpdate(
     {
-      _id: req.body._id,
+      _id: req.params._id,
     },
     {
       username: req.body.username,
@@ -270,7 +271,14 @@ router.put("/users/", async function (req, res) {
       address: req.body.address,
     }
   );
-  res.send(true);
+  if (!user) {
+    return res.status(404).json({ success: false, message: "User not found" });
+  }
+  res.json({ success: true, user });
+} catch (error){
+  console.error("Error updating user profile:", error);
+  res.status(500).json({ success: false, message: "Internal server error" });
+}
 });
 
 router.delete("/users/:id", async function (req, res) {

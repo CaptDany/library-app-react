@@ -40,7 +40,7 @@ const TopBar = ({ isLogged, loggedInUser }) => {
               {showDropdownMenu && (
                 <div className="dropdown-menu">
                   {/* Add dropdown menu items here */}
-                  <Link onClick={toggleDropdownMenu} to="/manage">
+                  <Link onClick={toggleDropdownMenu} to="/profile">
                     Profile
                   </Link>
                   <Link onClick={toggleDropdownMenu} to="/logout">

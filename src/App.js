@@ -10,6 +10,7 @@ import NoPage from "./view/pages/NoPage";
 import ReservationManagementPage from "./view/pages/ReservationManagementPage";
 import TopBar from "./Controller/Topbar.js";
 import UserDash from "./view/pages/UserDashboard";
+import ModifyProfilePage from "./view/pages/ModifyProfilePage";
 import UserManagementPage from "./view/pages/UserManagementPage";
 import Logout from "./Controller/Logout";
 
@@ -54,6 +55,7 @@ function App() {
               <Route path="/reserve" element={<ReservationManagementPage />} />
               <Route path="/validate" element={<BookValidationPage />} />
               <Route path="/manage" element={<UserManagementPage />} />
+              <Route path="/profile" element={<ModifyProfilePage />} />
               <Route path="/add-book" element={<AddBookPage />} />
               <Route path="*" element={<NoPage />} />
             </>
@@ -65,6 +67,7 @@ function App() {
               <Route path="/" element={<Navigate to="/dashboard" />} />
               <Route path="/search" element={<BookSearchPage />} />
               <Route path="/reserve" element={<ReservationManagementPage />} />
+              <Route path="/profile" element={<ModifyProfilePage />} />
               <Route path="*" element={<NoPage />} />
             </>
           )
